@@ -1,0 +1,98 @@
+apply plugin: 'com.android.application'
+
+android {
+    compileSdkVersion 23
+    buildToolsVersion "23.0.3"
+    useLibrary 'org.apache.http.legacy'
+
+    defaultConfig {
+        applicationId "com.android.leopardmediahd"
+        minSdkVersion 15
+        targetSdkVersion 21
+
+        testApplicationId "com.android.leopardmediahd.test"
+        testInstrumentationRunner "android.test.InstrumentationTestRunner"
+
+        renderscriptTargetApi 23
+        renderscriptSupportModeEnabled true
+    }
+
+    // --- AÑADIDO: CONFIGURACIÓN DE FIRMA (usa las 4 variables de ~/.gradle/gradle.properties) ---
+    signingConfigs {
+    release {
+        // Lee las propiedades definidas en ~/.gradle/gradle.properties (Gradle 2.2.1)
+        def P = project
+        def storePath = P.hasProperty('MYAPP_UPLOAD_STORE_FILE') ? P.property('MYAPP_UPLOAD_STORE_FILE') : 'keystore.jks'
+        storeFile file(storePath)
+        storePassword (P.hasProperty('MYAPP_UPLOAD_STORE_PASSWORD') ? P.property('MYAPP_UPLOAD_STORE_PASSWORD') : '')
+        keyAlias     (P.hasProperty('MYAPP_UPLOAD_KEY_ALIAS') ? P.property('MYAPP_UPLOAD_KEY_ALIAS') : 'release')
+        keyPassword  (P.hasProperty('MYAPP_UPLOAD_KEY_PASSWORD') ? P.property('MYAPP_UPLOAD_KEY_PASSWORD') : '')
+    }
+}
+    // ----------------------------------------------------------------------------------------------
+
+    buildTypes {
+        release {
+            // AÑADIDO: firmar el release con la config anterior
+            signingConfig signingConfigs.release
+
+            // deja sin ofuscación para este toolchain antiguo
+            minifyEnabled false
+        }
+        debug {
+            // sin cambios para debug
+        }
+    }
+
+    compileOptions {
+        sourceCompatibility JavaVersion.VERSION_1_7
+        targetCompatibility JavaVersion.VERSION_1_7
+    }
+}
+
+repositories {
+    google()
+
+    mavenCentral()
+    mavenLocal()
+    maven {
+        url 'http://4thline.org/m2'
+        allowInsecureProtocol true
+    }
+}
+
+dependencies {
+implementation "eu.agno3.jcifs:jcifs-ng:2.1.10"
+implementation 'com.android.support:support-v4:23.0.0'
+implementation 'com.google.guava:guava:18.0'
+implementation 'com.android.support:support-v13:23.0.0'
+implementation 'com.android.support:appcompat-v7:23.0.0'
+implementation 'com.android.support:palette-v7:23.0.0'
+implementation 'com.android.support:mediarouter-v7:23.0.0'
+implementation 'com.android.support:recyclerview-v7:23.0.0'
+implementation 'com.android.support:cardview-v7:23.0.0'
+implementation 'com.squareup.picasso:picasso:2.3.4'
+implementation 'com.squareup.okhttp:okhttp:2.2.0'
+implementation 'com.squareup.okhttp:okhttp-urlconnection:2.2.0'
+implementation 'com.squareup.okio:okio:1.2.0'
+implementation 'com.squareup:otto:1.3.4'
+implementation 'com.melnykov:floatingactionbutton:1.1.0'
+implementation 'com.github.ksoichiro:android-observablescrollview:1.4.0'
+    //compile 'com.android.support:leanback-v17:21.0.3'
+implementation 'com.jpardogo.materialtabstrip:library:1.0.7'
+    compile files('libs/cling-core-1.0.5.jar')
+    compile files('libs/cling-support-1.0.5.jar')
+    compile files('libs/teleal-common-1.0.13.jar')
+    compile files('libs/YouTubeAndroidPlayerApi.jar')
+
+/**
+ * // Cling 2.0 dependencies on Android
+ compile group: 'org.fourthline.cling', name: 'cling-core', version:'2.0.1'
+ compile group: 'org.fourthline.cling', name: 'cling-support', version:'2.0.1'
+ compile group: 'org.eclipse.jetty', name: 'jetty-server', version:'8.1.12.v20130726'
+ compile group: 'org.eclipse.jetty', name: 'jetty-servlet', version:'8.1.12.v20130726'
+ compile group: 'org.eclipse.jetty', name: 'jetty-client', version:'8.1.12.v20130726'
+ compile group: 'org.slf4j', name: 'slf4j-jdk14', version:'1.7.5'
+ */
+
+}

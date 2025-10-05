@@ -1,0 +1,16 @@
+# Android/Gradle
+local.properties
+.gradle/
+**/build/
+*.apk
+
+# Keystore (no subir nunca)
+keystore.jks
+app/keystore.jks
+
+# IDE
+.idea/
+*.iml
+/app/build/
+/.idea/
+/local.properties

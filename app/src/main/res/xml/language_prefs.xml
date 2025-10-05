@@ -1,0 +1,19 @@
+<PreferenceScreen xmlns:android="http://schemas.android.com/apk/res/android"
+    android:icon="@drawable/ic_settings_white_24dp" >
+
+    <PreferenceCategory android:title="@string/language" >
+
+        <CheckBoxPreference
+            android:icon="@drawable/es_small"
+            android:key="prefsApplicationLanguageEspanol"
+            android:title="@string/languageSpanish"/>
+        <CheckBoxPreference
+            android:icon="@drawable/gb_small"
+            android:key="prefsApplicationLanguageEnglish"
+            android:title="@string/languageEnglish"/>
+        <CheckBoxPreference
+            android:icon="@drawable/ic_settings_white_24dp"
+            android:key="prefsApplicationLanguageCurrent"
+            android:title="@string/languageCurrent"/>
+    </PreferenceCategory>
+</PreferenceScreen>
